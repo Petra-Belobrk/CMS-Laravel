@@ -8,6 +8,7 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">ID</th>
+            <th scope="col">Photo</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Role</th>
@@ -23,7 +24,8 @@
 
         <tr>
             <th scope="row">{{$user->id}}</th>
-            <td>{{$user->name}}</td>
+            <td><img height="50px" src="{{$user->photo ? $user->photo->file : '/images/default.png'}}" alt=""></td>
+            <td><a href="{{route('users.edit', $user->id)}}">{{$user->name}}</a></td>
             <td>{{$user->email}}</td>
             <td>{{$user->role->name}}</td>
             <td>{{$user->is_active == 1 ? "Active" : "Inactive" }}</td>
