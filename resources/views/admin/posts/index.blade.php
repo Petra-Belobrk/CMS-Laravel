@@ -2,6 +2,18 @@
 
 @section('content')
 
+    @if(Session::has('delete_post'))
+        <p class="bg-danger">{{session('delete_post')}}</p>
+    @endif
+
+    @if(Session::has('edit_post'))
+        <p class="bg-success">{{session('edit_post')}}</p>
+    @endif
+
+    @if(Session::has('create_post'))
+        <p class="bg-success">{{session('create_post')}}</p>
+    @endif
+
 <h1>Posts</h1>
 
     <table class="table table-hover">
@@ -24,8 +36,8 @@
             <tr>
                 <th scope="row">{{$post->id}}</th>
                 <td><img height="50px" src="{{$post->photo ? $post->photo->file : '/images/placeholder.jpg'}}" alt=""></td>
-                <td>{{$post->user->name}}</td>
-                <td>{{$post->category_id}}</td>
+                <td><a href="{{route('posts.edit', $post->id)}}">{{$post->user->name}}</a></td>
+                <td>{{$post->category ? $post->category->name : "Uncategorized"}}</td>
                 <td>{{$post->title}}</td>
                 <td>{{$post->created_at->toDateTimeString()}}</td>
                 <td>{{$post->updated_at->diffForHumans()}}</td>
