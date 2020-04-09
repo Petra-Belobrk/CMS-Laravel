@@ -41,6 +41,9 @@
                 <td>{{$post->title}}</td>
                 <td>{{$post->created_at->toDateTimeString()}}</td>
                 <td>{{$post->updated_at->diffForHumans()}}</td>
+                <td><a href="{{route('home.post', $post->id)}}">View Post</a></td>
+                <td><a href="{{route('comments.show', $post->id)}}">View Comments</a></td>
+
             </tr>
                 @endforeach
 
