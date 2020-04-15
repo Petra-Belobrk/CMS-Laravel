@@ -97,6 +97,7 @@ class AdminPostsController extends Controller
     {
 
         $input = $request->all();
+        $post = Post::findOrFail($id);
 
         if($file = $request->file('photo_id')) {
             $name = time() . $file->getClientOriginalName();
@@ -105,7 +106,7 @@ class AdminPostsController extends Controller
             $input['photo_id'] = $photo->id;
         }
 
-        Auth::user()->posts()->whereId($id)->first()->update($input);
+        $post->whereId($id)->first()->update($input);
         Session::flash('edit_post', 'Post edited successfully');
 
 
@@ -131,9 +132,10 @@ class AdminPostsController extends Controller
 
     public function post($slug) {
         $post = Post::findBySlugOrFail($slug);
+        $categories = Category::all();
         $comments = $post->comments()->where('is_active', 1)->get();
 
-        return view('post', compact('post', 'comments'));
+        return view('post', compact('post', 'comments', 'categories'));
 
     }
 }

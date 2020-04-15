@@ -49,7 +49,10 @@ class AdminCategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $categories = Category::all();
+        $posts = $category->posts()->paginate(3);
+        return view('front.home', compact( 'posts', 'categories'));
     }
 
     /**
