@@ -29,4 +29,14 @@ class HomeController extends Controller
         $categories = Category::all();
         return view('front.home', compact('posts', 'categories'));
     }
+
+    public function searchResults(Request $request) {
+            $search = $request->input('search');
+            $categories = Category::all();
+
+            $posts = Post::query()->where('title', 'LIKE', '%' . $search . '%' )->paginate(3);
+        return view('front.home', compact( 'posts', 'categories'));
+
+
+    }
 }

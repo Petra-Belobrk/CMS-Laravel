@@ -29,6 +29,8 @@ Route::get('/post/{id}', ['as'=>'home.post', 'uses'=>'AdminPostsController@post'
 
 Route::get('/category/{id}', ['as'=>'category.post','uses'=>'AdminCategoriesController@show']);
 
+Route::post('/post/search', 'HomeController@searchResults');
+
 
 Route::group(['middleware' => 'admin'], function() {
     Route::get('/admin', 'AdminController@index');
