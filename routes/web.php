@@ -23,11 +23,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', 'Auth\LoginController@logout', function () {
     return abort(404);
 });
-Route::get('/admin', function () {
-    return view('admin.index');
-});
+//Route::get('/admin', function () {
+//    return view('admin.index');
+//});
 
 Route::get('/post/{id}', ['as'=>'home.post', 'uses'=>'AdminPostsController@post']);
+
 
 Route::group(['middleware' => 'admin'], function() {
     Route::resource('/admin/users', 'AdminUsersController');
@@ -37,6 +38,11 @@ Route::group(['middleware' => 'admin'], function() {
         'as'=>'media.upload',
         'uses'=>'AdminMediasController@upload'
     ]);
+
+    Route::delete('admin/delete/media',[
+        'as'=>'delete.media',
+        'uses'=>'AdminMediasController@deleteMedia'
+    ]);
     Route::resource('/admin/media', 'AdminMediasController');
 
 
@@ -45,6 +51,10 @@ Route::group(['middleware' => 'admin'], function() {
    });
 
 Route::group(['middleware' => 'auth'], function() {
+
+    Route::get('/admin', function () {
+    return view('admin.index');
+});
 
 Route::post('comment/reply', 'CommentRepliesController@createReply');
 
